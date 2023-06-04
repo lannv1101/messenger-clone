@@ -11,17 +11,17 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  hasedPassword String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
+  hashedPassword String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
 
-  conversationsIds String[]      @db.ObjectId
-  conversations    Convesation[] @relation(fields: [conversationsIds], references: [id])
+  conversationIds String[]       @db.ObjectId
+  conversations   Conversation[] @relation(fields: [conversationIds], references: [id])
 
   seenMessageIds String[]  @db.ObjectId
   seenMessages   Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
@@ -49,18 +49,18 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
-model Convesation {
+model Conversation {
   id            String   @id @default(auto()) @map("_id") @db.ObjectId
-  createAt      DateTime @default(now())
+  createdAt     DateTime @default(now())
   lastMessageAt DateTime @default(now())
   name          String?
   isGroup       Boolean?
 
-  messageIds String[]  @db.ObjectId
-  messages   Message[]
+  messagesIds String[]  @db.ObjectId
+  messages    Message[]
 
   userIds String[] @db.ObjectId
-  user    User[]   @relation(fields: [userIds], references: [id])
+  users   User[]   @relation(fields: [userIds], references: [id])
 }
 
 model Message {
@@ -72,9 +72,9 @@ model Message {
   seenIds String[] @db.ObjectId
   seen    User[]   @relation("Seen", fields: [seenIds], references: [id])
 
-  conversationId String      @db.ObjectId
-  conversation   Convesation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  conversationId String       @db.ObjectId
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
 
   senderId String @db.ObjectId
-  sender   User   @relation(fields: [seenIds], references: [id], onDelete: Cascade)
+  sender   User   @relation(fields: [senderId], references: [id], onDelete: Cascade)
 }

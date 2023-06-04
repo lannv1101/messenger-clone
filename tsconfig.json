@@ -21,7 +21,10 @@
     ],
     "paths": {
       "@/*": ["./*"],
-       "@/lib/prismadb" : ["./app/libs/*"]
+      "@/lib/prismadb" : ["./app/libs/*"],
+      "@/app/hook/useRoutes" : ["./app/hook/useRoutes"],
+      "@/app/hook/useConversations" : ["./app/hook/useConversations"],
+      "@/app/api/auth/[...nextauth]/route": ["./app/api/auth/[...nextauth]/route"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
