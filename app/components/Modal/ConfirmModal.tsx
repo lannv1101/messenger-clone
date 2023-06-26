@@ -8,6 +8,7 @@ import { toast } from "react-hot-toast";
 import Modal from "./Modal";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Dialog } from "@headlessui/react";
+import Button from "../Button";
 
 interface ConfirmModalProps {
   isOpen: boolean;
@@ -72,6 +73,19 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ isOpen, onClose }) => {
             </p>
           </div>
         </div>
+      </div>
+      <div
+        className="mt-5
+      sm:mt-4
+      sm:flex
+      sm:flex-row-reverse"
+      >
+        <Button disabled={isLoading}
+        danger
+          onClick={onDelete}>Delete</Button>
+        <Button disabled={isLoading}
+        secondary
+        onClick={onClose}>Cancel</Button>
       </div>
     </Modal>
   );
